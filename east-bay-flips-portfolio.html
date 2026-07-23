@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>East Bay Flips: Resale Operations Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#121110;
+    --ink-2:#1a1917;
+    --ink-3:#211f1c;
+    --paper:#efe7d4;
+    --paper-2:#e3d9bf;
+    --text:#f3efe4;
+    --muted:#a49a86;
+    --gold:#d7a53c;
+    --green:#5a8065;
+    --rust:#b2543a;
+    --line:rgba(243,239,228,0.12);
+    --display: 'Archivo Black', 'Arial Black', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:76px 0 60px;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(215,165,60,0.10), transparent 60%),
+      var(--ink);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .brandline{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px;}
+  .wordmark{
+    font-family:var(--display);
+    font-size:clamp(30px,5vw,46px);
+    letter-spacing:-0.01em;
+    line-height:1;
+  }
+  .hero p.sub{
+    max-width:520px;
+    color:var(--muted);
+    font-size:15.5px;
+    line-height:1.55;
+    margin:14px 0 40px;
+  }
+  .hero-stat-row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;}
+  .stamp{
+    font-family:var(--display);
+    font-size:clamp(46px,8vw,84px);
+    line-height:0.92;
+    color:var(--gold);
+    letter-spacing:-0.01em;
+  }
+  .stamp small{
+    display:block;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--muted);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-top:6px;
+    font-weight:500;
+  }
+  .stamp-divider{
+    font-family:var(--display);
+    font-size:clamp(30px,5vw,50px);
+    color:var(--line);
+    padding-bottom:6px;
+  }
+
+  /* swing price tag, the signature element */
+  .swingtag{
+    position:absolute;
+    top:56px; right:44px;
+    width:172px;
+    transform:rotate(7deg);
+    filter:drop-shadow(0 14px 24px rgba(0,0,0,0.45));
+  }
+  .swingtag .string{
+    width:1px;height:34px;background:var(--muted);margin:0 auto;
+  }
+  .swingtag .tag{
+    position:relative;
+    background:var(--paper);
+    color:var(--ink);
+    padding:16px 14px 14px;
+    border-radius:4px 14px 4px 4px;
+    text-align:center;
+  }
+  .swingtag .tag::before{
+    content:"";
+    position:absolute;
+    top:9px; left:14px;
+    width:9px;height:9px;
+    border-radius:50%;
+    background:var(--ink);
+    box-shadow:0 0 0 2px var(--paper-2);
+  }
+  .swingtag .tag .lbl{
+    font-family:var(--mono);
+    font-size:9.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:#6b6252;
+  }
+  .swingtag .tag .val{
+    font-family:var(--display);
+    font-size:26px;
+    margin-top:2px;
+  }
+  @media (max-width:720px){ .swingtag{display:none;} }
+
+  /* ---------- TICKET STRIP ---------- */
+  .tickets{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .ticket{
+    padding:26px 22px;
+    border-right:1px dashed var(--line);
+  }
+  .ticket:last-child{border-right:none;}
+  .ticket .n{
+    font-family:var(--display);
+    font-size:26px;
+    color:var(--text);
+  }
+  .ticket .l{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-top:6px;
+  }
+  @media (max-width:720px){
+    .tickets{grid-template-columns:repeat(2,1fr);}
+    .ticket:nth-child(2){border-right:none;}
+  }
+
+  /* ---------- SECTION shell ---------- */
+  section{padding:64px 0;border-bottom:1px solid var(--line);}
+  h2{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(22px,3vw,30px);
+    margin:0 0 8px;
+  }
+  .section-note{color:var(--muted);font-size:14.5px;max-width:600px;margin:0 0 34px;line-height:1.55;}
+
+  /* ---------- CHART (line/bar) ---------- */
+  .chartpanel{
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:28px 24px 18px;
+  }
+  .chart-legend{display:flex;gap:22px;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-bottom:6px;flex-wrap:wrap;}
+  .chart-legend span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:9px;height:9px;border-radius:2px;display:inline-block;}
+  svg.chart{width:100%;height:auto;display:block;}
+  .axis-label{font-family:var(--mono);font-size:10px;fill:var(--muted);}
+
+  /* ---------- QUARTER COMPARE ---------- */
+  .qgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  @media (max-width:760px){.qgrid{grid-template-columns:1fr;}}
+  .qcard{
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:24px 24px 22px;
+  }
+  .qcard .qtitle{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:18px;
+  }
+  .metricrow{margin-bottom:20px;}
+  .metricrow:last-of-type{margin-bottom:0;}
+  .metricrow .mlabel{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:11px;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;
+  }
+  .metricrow .mlabel .growth{color:var(--green);font-weight:600;}
+  .bar-line{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+  .bar-line .yr{font-family:var(--mono);font-size:10.5px;color:var(--muted);width:34px;flex-shrink:0;}
+  .bar-line .track{flex:1;background:var(--ink-3);border-radius:3px;height:16px;overflow:hidden;}
+  .bar-line .fill{height:100%;border-radius:3px;display:flex;align-items:center;}
+  .bar-line.old .fill{background:var(--paper-2);opacity:0.55;}
+  .bar-line.new .fill{background:var(--gold);}
+  .bar-line .val{font-family:var(--mono);font-size:11px;color:var(--text);width:70px;text-align:right;flex-shrink:0;}
+  .qcard .unitsnote{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
+
+  /* ---------- NOTE ---------- */
+  .honest{
+    display:flex;gap:16px;
+    background:var(--ink-2);border:1px solid var(--line);border-radius:10px;
+    padding:22px 24px;
+  }
+  .honest .mark{font-family:var(--mono);color:var(--gold);font-size:20px;line-height:1;}
+  .honest p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6;}
+  .honest p b{color:var(--text);font-weight:600;}
+
+  /* ---------- SKILLS ---------- */
+  .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 32px;}
+  @media (max-width:720px){.skills{grid-template-columns:1fr;}}
+  .skill{padding-top:16px;border-top:1px solid var(--line);}
+  .skill .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);}
+  .skill .t{font-family:var(--body);font-weight:600;font-size:15.5px;margin:6px 0 6px;}
+  .skill .d{color:var(--muted);font-size:13.5px;line-height:1.55;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:44px 0 60px;text-align:center;}
+  footer .fm{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em;}
+  footer .fm b{color:var(--text);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="swingtag">
+    <div class="string"></div>
+    <div class="tag">
+      <div class="lbl">Return on cost</div>
+      <div class="val">358%</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="brandline">
+      <div class="wordmark">EAST BAY FLIPS</div>
+    </div>
+    <div class="eyebrow">Resale Operations · Jan 2025 to Jul 2026 · Solo Operated</div>
+    <p class="sub">I built this as a self-funded e-commerce business, and I run it the way I run everything else: by letting data drive decisions.</p>
+
+    <div class="hero-stat-row">
+      <div class="stamp">$14,165<small>Net profit</small></div>
+      <div class="stamp-divider">/</div>
+      <div class="stamp">409<small>Items sold</small></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="tickets">
+    <div class="ticket"><div class="n">$20,728</div><div class="l">Gross revenue</div></div>
+    <div class="ticket"><div class="n">59.7%</div><div class="l">Avg. margin</div></div>
+    <div class="ticket"><div class="n">51.3%</div><div class="l">Sell-through rate</div></div>
+    <div class="ticket"><div class="n">47 days</div><div class="l">Median time to sell</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <h2>Revenue &amp; profit, month by month</h2>
+    <p class="section-note">I've sourced, listed, and tracked 798 items individually since January 2025. Revenue scales with volume, but profit tracks tighter. Margin discipline held even as throughput grew.</p>
+    <div class="chartpanel">
+      <div class="chart-legend">
+        <span><i class="dot" style="background:var(--paper-2)"></i>Revenue</span>
+        <span><i class="dot" style="background:var(--gold)"></i>Profit</span>
+      </div>
+      <svg id="chartSvg" class="chart" viewBox="0 0 1000 340" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+  </section>
+
+  <section>
+    <h2>Year over year, quarter by quarter</h2>
+    <p class="section-note">Same three months, one year apart. I launched the business in late January 2025, so Q1 last year is a tiny base. Q2 is the fairer comparison, and the growth held even with nine percent fewer units sold.</p>
+    <div class="qgrid">
+      <div class="qcard">
+        <div class="qtitle">Q1 (Jan – Mar) · 2025 vs 2026</div>
+        <div class="metricrow">
+          <div class="mlabel"><span>Revenue</span><span class="growth">+661%</span></div>
+          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:13%"></div></div><span class="val">$266</span></div>
+          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$2,025</span></div>
+        </div>
+        <div class="metricrow">
+          <div class="mlabel"><span>Profit</span><span class="growth">+3,258%</span></div>
+          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="val">$41</span></div>
+          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$1,382</span></div>
+        </div>
+        <div class="unitsnote">4 items sold in Q1 '25 → 46 in Q1 '26</div>
+      </div>
+
+      <div class="qcard">
+        <div class="qtitle">Q2 (Apr – Jun) · 2025 vs 2026</div>
+        <div class="metricrow">
+          <div class="mlabel"><span>Revenue</span><span class="growth">+36%</span></div>
+          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:73%"></div></div><span class="val">$3,072</span></div>
+          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$4,191</span></div>
+        </div>
+        <div class="metricrow">
+          <div class="mlabel"><span>Profit</span><span class="growth">+67%</span></div>
+          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:60%"></div></div><span class="val">$1,989</span></div>
+          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$3,320</span></div>
+        </div>
+        <div class="unitsnote">74 items sold in Q2 '25 → 67 in Q2 '26. Fewer sales, more profit per sale.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Time to sell, coming down</h2>
+    <p class="section-note">This is median days from listing to sale, grouped by the quarter I listed the item. The most recent quarter is still active, so some of those items haven't sold yet, and that pulls the number down. Even accounting for that, the trend has held for a year.</p>
+    <div class="chartpanel">
+      <div class="chart-legend">
+        <span><i class="dot" style="background:var(--gold)"></i>Median days to sell</span>
+        <span style="opacity:.7">· dashed = quarter still in progress</span>
+      </div>
+      <svg id="ttsSvg" class="chart" viewBox="0 0 1000 260" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+  </section>
+
+  <section>
+    <h2>What the data changed</h2>
+    <div class="honest">
+      <div class="mark">＋</div>
+      <p>I spent the first several months on a deliberate <b>testing phase</b>. I sourced a wide mix of categories, vacuum parts, DVD players, board games, apparel, electronics, to see what actually sold and at what margin. 20 of 409 sales still closed at a loss, about $107 total, and almost all of it came from that early window. Once a category showed weak sell through or thin margin, I <b>cut it from future sourcing</b>. That's a big reason time to sell has come down and profit per sale has gone up ever since.</p>
+    </div>
+  </section>
+
+  <section style="border-bottom:none;">
+    <h2>Why this is on my resume</h2>
+    <p class="section-note">This isn't a hobby project I'm dressing up. It's 18 months of running a real P&amp;L, and it maps directly onto the work I do professionally.</p>
+    <div class="skills">
+      <div class="skill">
+        <div class="k">Unit economics</div>
+        <div class="t">Owned the full P&amp;L, SKU by SKU</div>
+        <div class="d">I tracked cost, fees, and margin on every one of 798 items. That's the same discipline as owning CPA, ROAS, or contribution margin on a media or growth account.</div>
+      </div>
+      <div class="skill">
+        <div class="k">Market pricing</div>
+        <div class="t">Priced against live comps, not intuition</div>
+        <div class="d">I benchmarked every listing against sold comps before I priced it. Reading a market and setting a number that clears it is the core of any pricing or bidding function.</div>
+      </div>
+      <div class="skill">
+        <div class="k">Data-driven iteration</div>
+        <div class="t">Tested, measured, and cut what didn't work</div>
+        <div class="d">I tested a wide range of categories early on, then narrowed to what the data actually supported. It's the same test, measure, and cut loop as running growth experiments.</div>
+      </div>
+      <div class="skill">
+        <div class="k">Operations at scale</div>
+        <div class="t">798 SKUs, one person, zero spreadsheet chaos</div>
+        <div class="d">I handled sourcing, listing, fulfillment, and reconciliation for hundreds of unique items on my own. That's end to end process ownership and inventory discipline in miniature.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="fm">EAST BAY FLIPS &nbsp;·&nbsp; <b>Leo</b> &nbsp;·&nbsp; Ad Tech &amp; Growth Analytics</div>
+</footer>
+
+<script>
+  // ---------- Monthly revenue/profit ----------
+  const months = [
+    {m:"Jan '25", rev:125.00, prof:5.50},
+    {m:"Feb '25", rev:141.00, prof:35.65},
+    {m:"Apr '25", rev:559.89, prof:386.76},
+    {m:"May '25", rev:1022.81, prof:633.61},
+    {m:"Jun '25", rev:1489.28, prof:968.80},
+    {m:"Jul '25", rev:2145.95, prof:1560.26},
+    {m:"Aug '25", rev:1283.99, prof:768.76},
+    {m:"Sep '25", rev:1658.35, prof:1041.95},
+    {m:"Oct '25", rev:1823.44, prof:1229.63},
+    {m:"Nov '25", rev:1145.98, prof:712.20},
+    {m:"Dec '25", rev:1863.89, prof:1278.89},
+    {m:"Jan '26", rev:737.97, prof:490.20},
+    {m:"Feb '26", rev:714.42, prof:499.11},
+    {m:"Mar '26", rev:572.95, prof:392.45},
+    {m:"Apr '26", rev:555.92, prof:369.43},
+    {m:"May '26", rev:1529.91, prof:1269.03},
+    {m:"Jun '26", rev:2105.36, prof:1681.42},
+    {m:"Jul '26", rev:1251.45, prof:840.92},
+  ];
+
+  function buildBarLineChart(svgId, data, opts){
+    const svgW = 1000, svgH = opts.h;
+    const padL = 46, padR = 10, padT = 14, padB = 30;
+    const plotW = svgW - padL - padR;
+    const plotH = svgH - padT - padB;
+    const maxVal = Math.max(...data.map(d=>d.rev !== undefined ? d.rev : d.val)) * 1.1;
+
+    const xStep = plotW / data.length;
+    const barW = xStep * 0.5;
+
+    function yFor(v){ return padT + plotH - (v/maxVal)*plotH; }
+    function xFor(i){ return padL + i*xStep + xStep/2; }
+
+    let svg = '';
+    const gridVals = [0, maxVal*0.25, maxVal*0.5, maxVal*0.75, maxVal];
+    gridVals.forEach(v=>{
+      const y = yFor(v);
+      svg += `<line x1="${padL}" y1="${y}" x2="${svgW-padR}" y2="${y}" stroke="rgba(243,239,228,0.07)" stroke-width="1"/>`;
+      svg += `<text x="${padL-8}" y="${y+3}" text-anchor="end" class="axis-label">${opts.prefix||''}${Math.round(v)}</text>`;
+    });
+
+    if(opts.mode === 'barline'){
+      data.forEach((d,i)=>{
+        const x = xFor(i) - barW/2;
+        const y = yFor(d.rev);
+        const h = plotH+padT-y;
+        svg += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="#e3d9bf" opacity="0.55" rx="2"/>`;
+      });
+      let path = '';
+      data.forEach((d,i)=>{
+        const x = xFor(i), y = yFor(d.prof);
+        path += (i===0? 'M':'L') + x.toFixed(1) + ',' + y.toFixed(1) + ' ';
+      });
+      svg += `<path d="${path}" fill="none" stroke="#d7a53c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+      data.forEach((d,i)=>{
+        svg += `<circle cx="${xFor(i)}" cy="${yFor(d.prof)}" r="3" fill="#d7a53c"/>`;
+      });
+    } else if(opts.mode === 'line'){
+      let path = '';
+      data.forEach((d,i)=>{
+        const x = xFor(i), y = yFor(d.val);
+        path += (i===0? 'M':'L') + x.toFixed(1) + ',' + y.toFixed(1) + ' ';
+      });
+      svg += `<path d="${path}" fill="none" stroke="#d7a53c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="${opts.dash||''}"/>`;
+      data.forEach((d,i)=>{
+        const solid = !d.provisional;
+        svg += `<circle cx="${xFor(i)}" cy="${yFor(d.val)}" r="4" fill="${solid?'#d7a53c':'#121110'}" stroke="#d7a53c" stroke-width="2"/>`;
+        svg += `<text x="${xFor(i)}" y="${yFor(d.val)-12}" text-anchor="middle" class="axis-label" fill="#f3efe4">${d.val}${d.provisional?'*':''}</text>`;
+      });
+    }
+
+    data.forEach((d,i)=>{
+      if(opts.everyLabel || i % opts.labelEvery === 0 || i === data.length-1){
+        svg += `<text x="${xFor(i)}" y="${svgH-8}" text-anchor="middle" class="axis-label">${d.m}</text>`;
+      }
+    });
+
+    document.getElementById(svgId).innerHTML = svg;
+  }
+
+  buildBarLineChart('chartSvg', months, {h:340, mode:'barline', prefix:'$', labelEvery:3});
+
+  // ---------- Time to sell by list quarter ----------
+  const tts = [
+    {m:"Q2 '25", val:66},
+    {m:"Q3 '25", val:59},
+    {m:"Q4 '25", val:58},
+    {m:"Q1 '26", val:45},
+    {m:"Q2 '26", val:16, provisional:true},
+  ];
+  buildBarLineChart('ttsSvg', tts, {h:260, mode:'line', labelEvery:1, everyLabel:true});
+</script>
+
+</body>
+</html>
