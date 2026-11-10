@@ -186,13 +186,13 @@
   .axis-label{font-family:var(--mono);font-size:10px;fill:var(--muted);}
 
   /* ---------- QUARTER COMPARE ---------- */
-  .qgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .qgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
   @media (max-width:760px){.qgrid{grid-template-columns:1fr;}}
   .qcard{
     background:var(--ink-2);
     border:1px solid var(--line);
     border-radius:10px;
-    padding:24px 24px 22px;
+    padding:18px 16px 18px;
   }
   .qcard .qtitle{
     font-family:var(--mono);
@@ -216,7 +216,7 @@
   .bar-line .fill{height:100%;border-radius:3px;display:flex;align-items:center;}
   .bar-line.old .fill{background:var(--paper-2);opacity:0.55;}
   .bar-line.new .fill{background:var(--gold);}
-  .bar-line .val{font-family:var(--mono);font-size:11px;color:var(--text);width:70px;text-align:right;flex-shrink:0;}
+  .bar-line .val{font-family:var(--mono);font-size:11px;color:var(--text);width:58px;text-align:right;flex-shrink:0;}
   .qcard .unitsnote{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
 
   /* ---------- NOTE ---------- */
@@ -249,31 +249,31 @@
   <div class="swingtag">
     <div class="string"></div>
     <div class="tag">
-      <div class="lbl">Return on Investment</div>
-      <div class="val">358%</div>
+      <div class="lbl">Profit / recorded cost</div>
+      <div class="val">204%</div>
     </div>
   </div>
   <div class="wrap">
     <div class="brandline">
       <div class="wordmark">EAST BAY FLIPS</div>
     </div>
-    <div class="eyebrow">Resale Operations · Jan 2025 to Jul 2026 · Solo Operated</div>
+    <div class="eyebrow">Resale Operations · Jan 2025 to Nov 2026 · Solo Operated</div>
     <p class="sub">I built this as a self-funded e-commerce business, and I run it the way I run everything else: by letting data drive decisions.</p>
 
     <div class="hero-stat-row">
-      <div class="stamp">$14,165<small>Net profit</small></div>
+      <div class="stamp">$17,653<small>Recorded profit</small></div>
       <div class="stamp-divider">/</div>
-      <div class="stamp">409<small>Items sold</small></div>
+      <div class="stamp">547<small>Items sold</small></div>
     </div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="tickets">
-    <div class="ticket"><div class="n">$20,728</div><div class="l">Gross revenue</div></div>
-    <div class="ticket"><div class="n">59.7%</div><div class="l">Avg. margin</div></div>
-    <div class="ticket"><div class="n">51.3%</div><div class="l">Sell-through rate</div></div>
-    <div class="ticket"><div class="n">47 days</div><div class="l">Median time to sell</div></div>
+    <div class="ticket"><div class="n">$26,290</div><div class="l">Gross revenue</div></div>
+    <div class="ticket"><div class="n">67.1%</div><div class="l">Avg. margin</div></div>
+    <div class="ticket"><div class="n">53.5%</div><div class="l">Sold / inventory records</div></div>
+    <div class="ticket"><div class="n">58 days</div><div class="l">Median time to sell</div></div>
   </div>
 </div>
 
@@ -281,7 +281,7 @@
 
   <section>
     <h2>Revenue &amp; profit, month by month</h2>
-    <p class="section-note">I've sourced, listed, and tracked 798 items individually since January 2025. Revenue scales with volume, but profit tracks tighter. Margin discipline held even as throughput grew.</p>
+    <p class="section-note">I've tracked 1,022 inventory records since January 2025. Monthly revenue and recorded profit reflect completed sales with valid sale dates through November 2026.</p>
     <div class="chartpanel">
       <div class="chart-legend">
         <span><i class="dot" style="background:var(--paper-2)"></i>Revenue</span>
@@ -293,10 +293,10 @@
 
   <section>
     <h2>Year over year, quarter by quarter</h2>
-    <p class="section-note">Same three months, one year apart. I launched the business in late January 2025, so Q1 last year is a tiny base. Q2 is the fairer comparison, and the growth held even with nine percent fewer units sold.</p>
+    <p class="section-note">Comparing the same calendar quarters across 2025 and 2026. Q1 2025 reflects the early launch period; Q2 and Q3 offer more established comparisons.</p>
     <div class="qgrid">
       <div class="qcard">
-        <div class="qtitle">Q1 (Jan – Mar) · 2025 vs 2026</div>
+        <div class="qtitle">Q1 · 2025 vs 2026</div>
         <div class="metricrow">
           <div class="mlabel"><span>Revenue</span><span class="growth">+661%</span></div>
           <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:13%"></div></div><span class="val">$266</span></div>
@@ -307,33 +307,46 @@
           <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="val">$41</span></div>
           <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$1,382</span></div>
         </div>
-        <div class="unitsnote">4 items sold in Q1 '25 → 46 in Q1 '26</div>
+        <div class="unitsnote">4 items sold in Q1 2025 → 46 in Q1 2026</div>
       </div>
-
       <div class="qcard">
-        <div class="qtitle">Q2 (Apr – Jun) · 2025 vs 2026</div>
+        <div class="qtitle">Q2 · 2025 vs 2026</div>
         <div class="metricrow">
-          <div class="mlabel"><span>Revenue</span><span class="growth">+36%</span></div>
-          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:73%"></div></div><span class="val">$3,072</span></div>
-          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$4,191</span></div>
+          <div class="mlabel"><span>Revenue</span><span class="growth">+11%</span></div>
+          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:90%"></div></div><span class="val">$3,072</span></div>
+          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$3,408</span></div>
         </div>
         <div class="metricrow">
-          <div class="mlabel"><span>Profit</span><span class="growth">+67%</span></div>
-          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:60%"></div></div><span class="val">$1,989</span></div>
-          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$3,320</span></div>
+          <div class="mlabel"><span>Profit</span><span class="growth">+25%</span></div>
+          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:80%"></div></div><span class="val">$1,989</span></div>
+          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$2,479</span></div>
         </div>
-        <div class="unitsnote">74 items sold in Q2 '25 → 67 in Q2 '26. Fewer sales, more profit per sale.</div>
+        <div class="unitsnote">75 items sold in Q2 2025 → 67 in Q2 2026</div>
+      </div>
+      <div class="qcard">
+        <div class="qtitle">Q3 · 2025 vs 2026</div>
+        <div class="metricrow">
+          <div class="mlabel"><span>Revenue</span><span class="growth">+5%</span></div>
+          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:95%"></div></div><span class="val">$5,148</span></div>
+          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$5,422</span></div>
+        </div>
+        <div class="metricrow">
+          <div class="mlabel"><span>Profit</span><span class="growth">+1%</span></div>
+          <div class="bar-line old"><span class="yr">2025</span><div class="track"><div class="fill" style="width:99%"></div></div><span class="val">$3,421</span></div>
+          <div class="bar-line new"><span class="yr">2026</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">$3,466</span></div>
+        </div>
+        <div class="unitsnote">94 items sold in Q3 2025 → 133 in Q3 2026</div>
       </div>
     </div>
   </section>
 
   <section>
     <h2>Time to sell, coming down</h2>
-    <p class="section-note">This is median days from listing to sale, grouped by the quarter I listed the item. The most recent quarter is still active, so some of those items haven't sold yet, and that pulls the number down. Even accounting for that, the trend has held for a year.</p>
+    <p class="section-note">Median days from listing to sale, grouped by the quarter each item was listed. These figures include sold items only; recent quarters are incomplete and may appear artificially faster because unsold inventory is excluded.</p>
     <div class="chartpanel">
       <div class="chart-legend">
         <span><i class="dot" style="background:var(--gold)"></i>Median days to sell</span>
-        <span style="opacity:.7">· dashed = quarter still in progress</span>
+        <span style="opacity:.7">· open circles = incomplete recent cohorts</span>
       </div>
       <svg id="ttsSvg" class="chart" viewBox="0 0 1000 260" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
@@ -343,18 +356,18 @@
     <h2>What the data changed</h2>
     <div class="honest">
       <div class="mark">＋</div>
-      <p>I spent the first several months on a deliberate <b>testing phase</b>. I sourced a wide mix of categories, vacuum parts, DVD players, board games, apparel, electronics, to see what actually sold and at what margin. 20 of 409 sales still closed at a loss, about $107 total, and almost all of it came from that early window. Once a category showed weak sell through or thin margin, I <b>cut it from future sourcing</b>. That's a big reason time to sell has come down and profit per sale has gone up ever since.</p>
+      <p>I tested a range of product categories and tracked the results at the item level. Of 547 completed sales, <b>35 closed at a loss</b>, totaling <b>$237</b>. I use sales velocity and profit data to guide future sourcing, pricing, and inventory decisions.</p>
     </div>
   </section>
 
   <section style="border-bottom:none;">
     <h2>Why this is on my resume</h2>
-    <p class="section-note">This isn't a hobby project I'm dressing up. It's 18 months of running a real P&amp;L, and it maps directly onto the work I do professionally.</p>
+    <p class="section-note">This business gives me hands-on experience with inventory economics, pricing, operational reporting, and data-driven decisions.</p>
     <div class="skills">
       <div class="skill">
         <div class="k">Unit economics</div>
         <div class="t">Owned the full P&amp;L, SKU by SKU</div>
-        <div class="d">I tracked cost, fees, and margin on every one of 798 items. That's the same discipline as owning CPA, ROAS, or contribution margin on a media or growth account.</div>
+        <div class="d">I tracked cost, fees, and margin on each of 1,022 inventory records. That's the same discipline as owning CPA, ROAS, or contribution margin on a media or growth account.</div>
       </div>
       <div class="skill">
         <div class="k">Market pricing</div>
@@ -368,7 +381,7 @@
       </div>
       <div class="skill">
         <div class="k">Operations at scale</div>
-        <div class="t">798 SKUs, one person, zero spreadsheet chaos</div>
+        <div class="t">1,022 inventory records, one operator</div>
         <div class="d">I handled sourcing, listing, fulfillment, and reconciliation for hundreds of unique items on my own. That's end to end process ownership and inventory discipline in miniature.</div>
       </div>
     </div>
@@ -390,25 +403,28 @@
     {m:"Jun '25", rev:1489.28, prof:968.80},
     {m:"Jul '25", rev:2145.95, prof:1560.26},
     {m:"Aug '25", rev:1283.99, prof:768.76},
-    {m:"Sep '25", rev:1658.35, prof:1041.95},
+    {m:"Sep '25", rev:1718.35, prof:1091.95},
     {m:"Oct '25", rev:1823.44, prof:1229.63},
-    {m:"Nov '25", rev:1145.98, prof:712.20},
-    {m:"Dec '25", rev:1863.89, prof:1278.89},
+    {m:"Nov '25", rev:1130.98, prof:712.20},
+    {m:"Dec '25", rev:1813.89, prof:1336.89},
     {m:"Jan '26", rev:737.97, prof:490.20},
     {m:"Feb '26", rev:714.42, prof:499.11},
     {m:"Mar '26", rev:572.95, prof:392.45},
     {m:"Apr '26", rev:555.92, prof:369.43},
-    {m:"May '26", rev:1529.91, prof:1269.03},
-    {m:"Jun '26", rev:2105.36, prof:1681.42},
-    {m:"Jul '26", rev:1251.45, prof:840.92},
+    {m:"May '26", rev:1160.90, prof:842.02},
+    {m:"Jun '26", rev:1691.37, prof:1267.43},
+    {m:"Jul '26", rev:2202.44, prof:1513.30},
+    {m:"Aug '26", rev:1825.13, prof:1316.68},
+    {m:"Sep '26", rev:1394.29, prof:636.15},
+    {m:"Oct '26", rev:1961.85, prof:1455.81},
+    {m:"Nov '26", rev:217.94, prof:140.60},
   ];
-
   function buildBarLineChart(svgId, data, opts){
     const svgW = 1000, svgH = opts.h;
     const padL = 46, padR = 10, padT = 14, padB = 30;
     const plotW = svgW - padL - padR;
     const plotH = svgH - padT - padB;
-    const maxVal = Math.max(...data.map(d=>d.rev !== undefined ? d.rev : d.val)) * 1.1;
+    const maxVal = Math.max(...data.map(d=>d.rev !== undefined ? Math.max(d.rev, d.prof || 0) : d.val)) * 1.1;
 
     const xStep = plotW / data.length;
     const barW = xStep * 0.5;
@@ -467,13 +483,14 @@
 
   // ---------- Time to sell by list quarter ----------
   const tts = [
-    {m:"Q2 '25", val:66},
-    {m:"Q3 '25", val:59},
-    {m:"Q4 '25", val:58},
-    {m:"Q1 '26", val:45},
-    {m:"Q2 '26", val:16, provisional:true},
-  ];
-  buildBarLineChart('ttsSvg', tts, {h:260, mode:'line', labelEvery:1, everyLabel:true});
+    {m:"Q2 '25", val:71},
+    {m:"Q3 '25", val:72},
+    {m:"Q4 '25", val:74},
+    {m:"Q1 '26", val:94},
+    {m:"Q2 '26", val:64},
+    {m:"Q3 '26", val:14, provisional:true},
+    {m:"Q4 '26", val:8, provisional:true},
+  ];  buildBarLineChart('ttsSvg', tts, {h:260, mode:'line', labelEvery:1, everyLabel:true});
 </script>
 
 </body>
